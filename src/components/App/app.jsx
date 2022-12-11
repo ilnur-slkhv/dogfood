@@ -8,6 +8,7 @@ import Sort from "../Sort/sort";
 import "./styles.css";
 import data from "../../assets/data.json";
 import SearchInfo from "../SearchInfo";
+import Button from "../Button/button";
 
 function App() {
   const [cards, setCards] = useState(data);
@@ -43,6 +44,12 @@ function App() {
         </>
       </Header>
       <main className="content container">
+        {/* <h1 style={headerStyle} className="title">
+          Стилизованный заголовок
+        </h1> */}
+        <Button type="primary">Купить</Button>
+        <Button type="secondary">Подробнее</Button>
+
         <SearchInfo searchCount={cards.length} searchText={searchQuery} />
         <Sort />
         <div className="content__cards">
