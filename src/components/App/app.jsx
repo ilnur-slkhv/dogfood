@@ -6,21 +6,35 @@ import Logo from "../Logo/logo";
 import Search from "../Search/search";
 import Sort from "../Sort/sort";
 import "./styles.css";
-import data from "../../assets/data.json";
+// import data from "../../assets/data.json";
 import SearchInfo from "../SearchInfo";
 import Button from "../Button/button";
+import api from "../../utils/api";
 
 function App() {
-  const [cards, setCards] = useState(data);
+  const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleRequest = () => {
-    const filterCards = data.filter((item) =>
+    const filterCards = cards.filter((item) =>
       item.name.toUpperCase().includes(searchQuery.toUpperCase())
     );
     // setCards((prevState) => filterCards);
     setCards(filterCards);
   };
+
+  useEffect(() => {
+    api.getProductList().then((cardsData) => {
+      setCards(cardsData.products);
+      //устанавливаем состояние карточек
+    });
+
+    api.getUserInfo().then((userData) => {
+      setCurrentUser(userData);
+      //устнаваливаем состояние пользователя
+    });
+  }, []);
 
   useEffect(() => {
     handleRequest();
