@@ -10,35 +10,40 @@ import "./styles.css";
 import SearchInfo from "../SearchInfo";
 import Button from "../Button/button";
 import api from "../../utils/api";
+import useDebounce from "../../hooks/useDebounce";
 
 function App() {
   const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+  const debounceSearchQuery = useDebounce(searchQuery, 350);
 
   const handleRequest = () => {
-    const filterCards = cards.filter((item) =>
-      item.name.toUpperCase().includes(searchQuery.toUpperCase())
-    );
-    // setCards((prevState) => filterCards);
-    setCards(filterCards);
+    // const filterCards = cards.filter((item) =>
+    //   item.name.toUpperCase().includes(searchQuery.toUpperCase())
+    // );
+    // setCards(filterCards);
+    api
+      .search(debounceSearchQuery)
+      .then((searchResult) => {
+        setCards(searchResult);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    api.getProductList().then((cardsData) => {
-      setCards(cardsData.products);
-      //устанавливаем состояние карточек
-    });
-
-    api.getUserInfo().then((userData) => {
-      setCurrentUser(userData);
-      //устнаваливаем состояние пользователя
-    });
+    Promise.all([api.getProductList(), api.getUserInfo()])
+      .then(([productsData, userData]) => {
+        setCurrentUser(userData);
+        setCards(productsData.products);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
     handleRequest();
-  }, [searchQuery]);
+    console.log("INPUT", debounceSearchQuery);
+  }, [debounceSearchQuery]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();

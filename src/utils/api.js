@@ -19,6 +19,12 @@ class Api {
       headers: this._headers,
     }).then(onResponce);
   }
+
+  search(searchQuery) {
+    return fetch(`${this._baseUrl}/products/search?query=${searchQuery}`, {
+      headers: this._headers,
+    }).then(onResponce);
+  }
 }
 
 const config = {
