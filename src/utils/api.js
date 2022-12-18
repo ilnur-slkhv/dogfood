@@ -20,6 +20,14 @@ class Api {
     }).then(onResponce);
   }
 
+  setUserInfo(dataUser) {
+    return fetch(`${this._baseUrl}/v2/group-7/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify(dataUser),
+    }).then(onResponce);
+  }
+
   search(searchQuery) {
     return fetch(`${this._baseUrl}/products/search?query=${searchQuery}`, {
       headers: this._headers,

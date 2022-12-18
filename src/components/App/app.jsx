@@ -54,9 +54,15 @@ function App() {
     setSearchQuery(inputValue);
   };
 
+  function handleUpdateUser(userUpdateData) {
+    api.setUserInfo(userUpdateData).then((newUserData) => {
+      setCurrentUser(newUserData);
+    });
+  }
+
   return (
     <>
-      <Header>
+      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
         <>
           <Logo className="logo logo_place_header" href="/" />
           <Search onSubmit={handleFormSubmit} onInput={handleInputChange} />
