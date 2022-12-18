@@ -8,15 +8,16 @@ import Sort from "../Sort/sort";
 import "./styles.css";
 // import data from "../../assets/data.json";
 import SearchInfo from "../SearchInfo";
-import Button from "../Button/button";
+// import Button from "../Button/button";
 import api from "../../utils/api";
 import useDebounce from "../../hooks/useDebounce";
+import { isLiked } from "../../utils/product";
 
 function App() {
   const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
-  const debounceSearchQuery = useDebounce(searchQuery, 350);
+  const debounceSearchQuery = useDebounce(searchQuery, 400);
 
   const handleRequest = () => {
     // const filterCards = cards.filter((item) =>
@@ -60,6 +61,19 @@ function App() {
     });
   }
 
+  function handleProductLike(product) {
+    const liked = isLiked(product.likes, currentUser._id);
+    api.changeLikeProduct(product._id, liked).then((newCard) => {
+      const newProducts = cards.map((cardState) => {
+        console.log("Карточка из стейта", cardState);
+        console.log("Карточка из сервера", newCard);
+        return cardState._id === newCard._id ? newCard : cardState;
+      });
+
+      setCards(newProducts);
+    });
+  }
+
   return (
     <>
       <Header user={currentUser} onUpdateUser={handleUpdateUser}>
@@ -69,16 +83,17 @@ function App() {
         </>
       </Header>
       <main className="content container">
-        {/* <h1 style={headerStyle} className="title">
-          Стилизованный заголовок
-        </h1> */}
-        <Button type="primary">Купить</Button>
-        <Button type="secondary">Подробнее</Button>
+        {/* <Button type="primary">Купить</Button>
+        <Button type="secondary">Подробнее</Button> */}
 
         <SearchInfo searchCount={cards.length} searchText={searchQuery} />
         <Sort />
         <div className="content__cards">
-          <CardList goods={cards} />
+          <CardList
+            goods={cards}
+            onProductLike={handleProductLike}
+            currentUser={currentUser}
+          />
         </div>
       </main>
       <Footer />

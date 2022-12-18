@@ -33,6 +33,13 @@ class Api {
       headers: this._headers,
     }).then(onResponce);
   }
+
+  changeLikeProduct(productId, isLike) {
+    return fetch(`${this._baseUrl}/products/likes/${productId}`, {
+      method: isLike ? "DELETE" : "PUT",
+      headers: this._headers,
+    }).then(onResponce);
+  }
 }
 
 const config = {

@@ -1,18 +1,30 @@
 import classNames from "classnames";
 
 import "./styles.css";
-import save from "./save.svg";
+import { ReactComponent as Save } from "./save.svg";
+import { isLiked } from "../../utils/product";
 
 const Card = ({
   name,
   price,
+  _id,
+  likes,
   discount,
   wight,
   description,
   pictures,
   tags,
+  onProductLike,
+  currentUser,
 }) => {
   const discount_price = Math.round(price - (price * discount) / 100);
+
+  const liked = isLiked(likes, currentUser._id);
+
+  function handleLikeClick() {
+    onProductLike({ _id, likes });
+  }
+
   return (
     <div className="card">
       <div className="card__sticky card__sticky_type_top-left">
@@ -30,12 +42,13 @@ const Card = ({
           ))}
       </div>
       <div className="card__sticky card__sticky_type_top-right">
-        <button className="card__favorite">
-          <img
-            src={save}
-            alt="Добавить в избранное"
-            className="card__favorite-icon"
-          />
+        <button
+          className={classNames("card__favorite", {
+            "card__favorite_is-active": liked,
+          })}
+          onClick={handleLikeClick}
+        >
+          <Save className="card__favorite-icon" />
         </button>
       </div>
 

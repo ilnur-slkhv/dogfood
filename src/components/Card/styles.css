@@ -100,6 +100,18 @@
   display: flex;
 }
 
+.card__favorite svg {
+  fill: #ffffff;
+  stroke-width: 0.2px;
+  stroke: #000000;
+}
+
+.card__favorite_is-active svg {
+  fill: #ff0000;
+  stroke-width: 0px;
+  stroke: transparent;
+}
+
 .card__cart {
   margin-top: auto;
 }

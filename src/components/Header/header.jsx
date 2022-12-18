@@ -4,7 +4,7 @@ import classNames from "classnames";
 function Header({ children, user, onUpdateUser }) {
   const handleClickButtonEdit = (e) => {
     e.preventDefault();
-    onUpdateUser({ name: "Ильнур", about: "Ученик" });
+    onUpdateUser({ name: "Салахеев Ильнур Илдусович", about: "Ученик" });
   };
 
   return (
