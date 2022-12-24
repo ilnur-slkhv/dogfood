@@ -6,44 +6,47 @@ import Logo from "../Logo/logo";
 import Search from "../Search/search";
 import Sort from "../Sort/sort";
 import "./styles.css";
-// import data from "../../assets/data.json";
 import SearchInfo from "../SearchInfo";
-// import Button from "../Button/button";
 import api from "../../utils/api";
 import useDebounce from "../../hooks/useDebounce";
 import { isLiked } from "../../utils/product";
+import Spinner from "../Spinner/spinner";
 
 function App() {
   const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const debounceSearchQuery = useDebounce(searchQuery, 400);
 
   const handleRequest = () => {
-    // const filterCards = cards.filter((item) =>
-    //   item.name.toUpperCase().includes(searchQuery.toUpperCase())
-    // );
-    // setCards(filterCards);
+    setIsLoading(true);
     api
       .search(debounceSearchQuery)
       .then((searchResult) => {
         setCards(searchResult);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
+    setIsLoading(true);
     Promise.all([api.getProductList(), api.getUserInfo()])
       .then(([productsData, userData]) => {
         setCurrentUser(userData);
         setCards(productsData.products);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   useEffect(() => {
     handleRequest();
-    console.log("INPUT", debounceSearchQuery);
   }, [debounceSearchQuery]);
 
   const handleFormSubmit = (e) => {
@@ -65,8 +68,6 @@ function App() {
     const liked = isLiked(product.likes, currentUser._id);
     api.changeLikeProduct(product._id, liked).then((newCard) => {
       const newProducts = cards.map((cardState) => {
-        console.log("Карточка из стейта", cardState);
-        console.log("Карточка из сервера", newCard);
         return cardState._id === newCard._id ? newCard : cardState;
       });
 
@@ -76,24 +77,25 @@ function App() {
 
   return (
     <>
-      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
+      <Header>
         <>
           <Logo className="logo logo_place_header" href="/" />
           <Search onSubmit={handleFormSubmit} onInput={handleInputChange} />
         </>
       </Header>
       <main className="content container">
-        {/* <Button type="primary">Купить</Button>
-        <Button type="secondary">Подробнее</Button> */}
-
         <SearchInfo searchCount={cards.length} searchText={searchQuery} />
         <Sort />
         <div className="content__cards">
-          <CardList
-            goods={cards}
-            onProductLike={handleProductLike}
-            currentUser={currentUser}
-          />
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <CardList
+              goods={cards}
+              onProductLike={handleProductLike}
+              currentUser={currentUser}
+            />
+          )}
         </div>
       </main>
       <Footer />

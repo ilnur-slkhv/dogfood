@@ -45,11 +45,13 @@
   fill: #cfd8dc;
 }
 
-.search__btn:focus svg {
+.search__icon-clear:focus,
+.search__icon:focus {
   fill: #feba0c;
 }
 
-.search__btn:hover svg {
+.search__icon-clear:hover,
+.search__icon:hover {
   fill: #feba0c;
 }
 
