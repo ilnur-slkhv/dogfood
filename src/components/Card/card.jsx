@@ -4,6 +4,9 @@ import "./styles.css";
 import { ReactComponent as Save } from "./save.svg";
 import { calcDiscountPrice, isLiked } from "../../utils/product";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
+import { CardContext } from "../../context/cardContext";
 
 const Card = ({
   name,
@@ -15,11 +18,10 @@ const Card = ({
   description,
   pictures,
   tags,
-  onProductLike,
-  currentUser,
 }) => {
+  const { user: currentUser } = useContext(UserContext);
+  const { handleLike: onProductLike } = useContext(CardContext);
   const discount_price = calcDiscountPrice(price, discount);
-
   const liked = isLiked(likes, currentUser?._id);
 
   function handleLikeClick() {

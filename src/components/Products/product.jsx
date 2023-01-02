@@ -6,21 +6,20 @@ import quality from "./img/quality.svg";
 
 import { calcDiscountPrice, createMarkup, isLiked } from "../../utils/product";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 
 export const Product = ({
   onProductLike,
   pictures,
   likes = [],
-  reviews,
-  tags,
   name,
   price,
   discount,
   description,
-  wight,
-  _id,
-  currentUser,
 }) => {
+  const { user: currentUser } = useContext(UserContext);
+
   const navigate = useNavigate();
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
