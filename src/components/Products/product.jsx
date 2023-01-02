@@ -5,6 +5,7 @@ import truck from "./img/truck.svg";
 import quality from "./img/quality.svg";
 
 import { calcDiscountPrice, createMarkup, isLiked } from "../../utils/product";
+import { useNavigate } from "react-router-dom";
 
 export const Product = ({
   onProductLike,
@@ -20,15 +21,15 @@ export const Product = ({
   _id,
   currentUser,
 }) => {
+  const navigate = useNavigate();
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
   const descriptionHtml = createMarkup(description);
 
-  console.log(descriptionHtml);
   return (
     <>
       <div>
-        <a href="#" className="button-back">
+        <a href="#" className="button-back" onClick={() => navigate(-1)}>
           Назад
         </a>
         <h1 className={styles.productTitle}>{name}</h1>

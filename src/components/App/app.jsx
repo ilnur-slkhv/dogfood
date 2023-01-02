@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CardList from "../CardList/card-list";
 import Footer from "../Footer/footer";
 import Header from "../Header/header";
@@ -11,6 +11,10 @@ import api from "../../utils/api";
 import useDebounce from "../../hooks/useDebounce";
 import { isLiked } from "../../utils/product";
 import Spinner from "../Spinner/spinner";
+import { CatalogPage } from "../../pages/CatalogPage/catalog-page";
+import { ProductPage } from "../../pages/ProductPage/product-page";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { NotFoundPage } from "../../pages/NotFound/not-found-page";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -18,11 +22,25 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const debounceSearchQuery = useDebounce(searchQuery, 400);
+  const navigate = useNavigate();
 
-  const handleRequest = () => {
+  // const handleRequest = () => {
+  //   setIsLoading(true);
+  //   api
+  //     .search(debounceSearchQuery)
+  //     .then((searchResult) => {
+  //       setCards(searchResult);
+  //     })
+  //     .catch((err) => console.log(err))
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // };
+
+  const handleRequest = useCallback(() => {
     setIsLoading(true);
     api
-      .search(debounceSearchQuery)
+      .search(searchQuery)
       .then((searchResult) => {
         setCards(searchResult);
       })
@@ -30,7 +48,7 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       });
-  };
+  }, [searchQuery]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -49,8 +67,9 @@ function App() {
     handleRequest();
   }, [debounceSearchQuery]);
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  const handleFormSubmit = (inputText) => {
+    navigate("/");
+    setSearchQuery(inputText);
     handleRequest();
   };
 
@@ -80,23 +99,54 @@ function App() {
       <Header>
         <>
           <Logo className="logo logo_place_header" href="/" />
-          <Search onSubmit={handleFormSubmit} onInput={handleInputChange} />
+          <Routes>
+            <Route
+              path="/" //path не решает проблему. Ошибка No routes matched location "/product/622c779c77d63f6e70967d1c/" остается
+              element={
+                <Search
+                  onSubmit={handleFormSubmit}
+                  onInput={handleInputChange}
+                />
+              }
+            />
+          </Routes>
         </>
       </Header>
       <main className="content container">
         <SearchInfo searchCount={cards.length} searchText={searchQuery} />
-        <Sort />
-        <div className="content__cards">
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <CardList
-              goods={cards}
-              onProductLike={handleProductLike}
-              currentUser={currentUser}
-            />
-          )}
-        </div>
+        <Routes>
+          <Route
+            index
+            element={
+              <CatalogPage
+                isLoading={isLoading}
+                cards={cards}
+                currentUser={currentUser}
+                handleProductLike={handleProductLike}
+              />
+            }
+          />
+          <Route
+            path="/product/:productId"
+            element={
+              <ProductPage
+                isLoading={isLoading}
+                currentUser={currentUser}
+                // handleProductLike={handleProductLike}
+              />
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <NotFoundPage
+                isLoading={isLoading}
+                currentUser={currentUser}
+                // handleProductLike={handleProductLike}
+              />
+            }
+          />
+        </Routes>
       </main>
       <Footer />
     </>
