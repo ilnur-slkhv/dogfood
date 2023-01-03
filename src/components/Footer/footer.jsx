@@ -14,7 +14,6 @@ const Footer = () => {
           <div className="footer__col">
             <Logo
               className="logo footer__logo"
-              href="#"
               title="Логотип"
               aria-hidden={true}
             />

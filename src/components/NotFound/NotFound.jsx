@@ -1,7 +1,7 @@
 import React from "react";
 import notFound from "./img/ic-notfound.svg";
 import { Link } from "react-router-dom";
-import s from "./styles.module.css";
+import styles from "./styles.module.css";
 export const NotFound = ({
   children,
   title,
@@ -10,9 +10,14 @@ export const NotFound = ({
 }) => {
   return (
     <>
-      <div className={s.notFound}>
-        <img src={notFound} className={s.image} aria-hidden="true" alt="" />
-        <h1 className={s.title}>{title}</h1>
+      <div className={styles.notFound}>
+        <img
+          src={notFound}
+          className={styles.image}
+          aria-hidden="true"
+          alt=""
+        />
+        <h1 className={styles.title}>{title}</h1>
         {children && children}
         {buttonAction ? (
           <a href="#" className="btn" onClick={buttonAction}>

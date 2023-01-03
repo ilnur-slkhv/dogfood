@@ -8,6 +8,7 @@ import { calcDiscountPrice, createMarkup, isLiked } from "../../utils/product";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
+import { ContentHeader } from "../ContentHeader/content-header";
 
 export const Product = ({
   onProductLike,
@@ -27,15 +28,12 @@ export const Product = ({
 
   return (
     <>
-      <div>
-        <a href="#" className="button-back" onClick={() => navigate(-1)}>
-          Назад
-        </a>
-        <h1 className={styles.productTitle}>{name}</h1>
+      <ContentHeader title={name}>
         <div>
           <span>Артикул:</span> <b>3246842</b>
         </div>
-      </div>
+      </ContentHeader>
+
       <div className={styles.product}>
         <div className={styles.imgWrapper}>
           <img src={pictures} alt={`Изображение ${name}`} />
@@ -44,7 +42,7 @@ export const Product = ({
           <span className={discount ? styles.oldPrice : styles.price}>
             {price}&nbsp;₽
           </span>
-          {discount && (
+          {discount !== 0 && (
             <span
               className={classNames(
                 styles.price,
