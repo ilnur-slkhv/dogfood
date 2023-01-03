@@ -80,7 +80,7 @@ function App() {
         return updateCard;
       });
     },
-    [currentUser]
+    [currentUser, cards]
   );
 
   return (
