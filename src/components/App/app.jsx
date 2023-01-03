@@ -14,6 +14,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { NotFoundPage } from "../../pages/NotFound/not-found-page";
 import { UserContext } from "../../context/userContext";
 import { CardContext } from "../../context/cardContext";
+import { FaqPage } from "../../pages/FaqPage/faq-page";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -112,6 +113,7 @@ function App() {
               path="/product/:productId"
               element={<ProductPage isLoading={isLoading} />}
             />
+            <Route path="/faq" element={<FaqPage isLoading={isLoading} />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
