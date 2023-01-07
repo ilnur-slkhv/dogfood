@@ -16,6 +16,24 @@ import { UserContext } from "../../context/userContext";
 import { CardContext } from "../../context/cardContext";
 import { FaqPage } from "../../pages/FaqPage/faq-page";
 import { FavoritePage } from "../../pages/FavoritePage/favorite-page";
+import RegistrationForm from "../Form/registration-form";
+import Modal from "../Modal/modal";
+// import Form from "../Form/form";
+
+// function ContactList({ contacts }) {
+//   console.log(contacts);
+//   return (
+//     <div>
+//       {contacts.map((contacts) => (
+//         <div key={contacts.phoneNumber}>
+//           <p>{contacts.name}</p>
+//           <p>{contacts.lastName}</p>
+//           <p>{contacts.phoneNumber}</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -24,7 +42,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const debounceSearchQuery = useDebounce(searchQuery, 400);
   const [favorites, setFavotites] = useState([]);
+  const [isOpenModalForm, setIsOpenModalForm] = useState(false);
   const navigate = useNavigate();
+
+  // const [contacts, setContacts] = useState([]);
 
   const handleRequest = useCallback(() => {
     setIsLoading(true);
@@ -99,6 +120,13 @@ function App() {
     [currentUser, cards]
   );
 
+  // const addContact = useCallback(
+  //   (formData) => {
+  //     setContacts([...contacts, formData]);
+  //   },
+  //   [contacts]
+  // );
+
   return (
     <UserContext.Provider value={{ user: currentUser }}>
       <CardContext.Provider
@@ -108,6 +136,12 @@ function App() {
           handleLike: handleProductLike,
         }}
       >
+        <Modal active={isOpenModalForm} setActive={setIsOpenModalForm}>
+          <RegistrationForm />
+        </Modal>
+        {/* <Form serializeCb={addContact} /> */}
+        {/* <ContactList contacts={contacts} /> */}
+        <button onClick={() => setIsOpenModalForm(true)}>Войти</button>
         <Header>
           <>
             <Logo className="logo logo_place_header" href="/" />

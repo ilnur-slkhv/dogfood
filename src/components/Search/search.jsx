@@ -1,14 +1,15 @@
 import "./styles.css";
 import { ReactComponent as SearchIcon } from "./ic-search.svg";
 import { ReactComponent as CloseIcon } from "./ic-close-input.svg";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function Search({ onSubmit: propsOnSubmit, onInput }) {
   const [inputText, setInputText] = useState("");
+  const inputRef = useRef(null);
 
   const handleInput = (e) => {
-    setInputText(e.target.value);
-    onInput && onInput(e.target.value);
+    setInputText(inputRef.current.value);
+    onInput && onInput(e.current.value);
   };
 
   const handleFormSubmit = (e) => {
@@ -18,7 +19,7 @@ function Search({ onSubmit: propsOnSubmit, onInput }) {
 
   const handleClearInput = (e) => {
     e.stopPropagation();
-    setInputText("");
+    // setInputText("");
     onInput && onInput("");
   };
 
@@ -28,6 +29,7 @@ function Search({ onSubmit: propsOnSubmit, onInput }) {
         type="text"
         value={inputText}
         className="search__input"
+        ref={inputRef}
         placeholder="Поиск"
         onInput={handleInput}
       />
