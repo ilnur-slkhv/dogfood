@@ -6,9 +6,10 @@ import quality from "./img/quality.svg";
 
 import { calcDiscountPrice, createMarkup, isLiked } from "../../utils/product";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import { ContentHeader } from "../ContentHeader/content-header";
+import Rating from "../Rating/rating";
 
 export const Product = ({
   onProductLike,
@@ -20,7 +21,7 @@ export const Product = ({
   description,
 }) => {
   const { user: currentUser } = useContext(UserContext);
-
+  const [rating, setRating] = useState(4);
   const navigate = useNavigate();
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
@@ -30,7 +31,8 @@ export const Product = ({
     <>
       <ContentHeader title={name}>
         <div>
-          <span>Артикул:</span> <b>3246842</b>
+          <span>Артикул:</span>
+          <Rating rating={rating} setRating={setRating} isEditable />
         </div>
       </ContentHeader>
 
