@@ -37,6 +37,7 @@ function RegistrationForm() {
       </div>
 
       <input {...register("email")} type="text" placeholder="Email" />
+
       <input
         {...register("password", {
           required: {

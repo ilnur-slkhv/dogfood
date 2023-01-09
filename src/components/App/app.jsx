@@ -10,7 +10,13 @@ import useDebounce from "../../hooks/useDebounce";
 import { isLiked } from "../../utils/product";
 import { CatalogPage } from "../../pages/CatalogPage/catalog-page";
 import { ProductPage } from "../../pages/ProductPage/product-page";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { NotFoundPage } from "../../pages/NotFound/not-found-page";
 import { UserContext } from "../../context/userContext";
 import { CardContext } from "../../context/cardContext";
@@ -44,6 +50,12 @@ function App() {
   const [favorites, setFavotites] = useState([]);
   const [isOpenModalForm, setIsOpenModalForm] = useState(false);
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const backgroundLocation = location.state?.backgroundLocation;
+  const initialPath = location.state?.initialPath;
+  console.log("initialPath", initialPath);
 
   // const [contacts, setContacts] = useState([]);
 
@@ -136,12 +148,12 @@ function App() {
           handleLike: handleProductLike,
         }}
       >
-        <Modal active={isOpenModalForm} setActive={setIsOpenModalForm}>
+        {/* <Modal active={isOpenModalForm} setActive={setIsOpenModalForm}>
           <RegistrationForm />
-        </Modal>
+        </Modal> */}
         {/* <Form serializeCb={addContact} /> */}
         {/* <ContactList contacts={contacts} /> */}
-        <button onClick={() => setIsOpenModalForm(true)}>Войти</button>
+        {/* <button onClick={() => setIsOpenModalForm(true)}>Войти</button> */}
         <Header>
           <>
             <Logo className="logo logo_place_header" href="/" />
@@ -160,19 +172,92 @@ function App() {
         </Header>
         <main className="content container">
           <SearchInfo searchText={searchQuery} />
-          <Routes>
+          <Routes
+            location={
+              (backgroundLocation && {
+                pathname: initialPath,
+              }) ||
+              location
+            }
+          >
             <Route index element={<CatalogPage isLoading={isLoading} />} />
+
             <Route
               path="/product/:productId"
               element={<ProductPage isLoading={isLoading} />}
             />
+
             <Route path="/faq" element={<FaqPage isLoading={isLoading} />} />
+
             <Route
               path="/favorites"
               element={<FavoritePage isLoading={isLoading} />}
             />
+
+            <Route
+              path="/login"
+              element={
+                <>
+                  Авторизация
+                  <Link to="/register">Зарегистрироваться</Link>
+                </>
+              }
+            />
+
+            <Route
+              path="/register"
+              element={
+                <Modal>
+                  Регистрация
+                  <Link to="/login">Войти</Link>
+                </Modal>
+              }
+            />
+
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
+
+          {backgroundLocation && (
+            <Routes>
+              <Route
+                path="/login"
+                element={
+                  <Modal>
+                    Авторизация
+                    <Link
+                      to="/register"
+                      replace={true}
+                      state={{
+                        backgroundLocation: location,
+                        initialPath,
+                      }}
+                    >
+                      Зарегистрироваться
+                    </Link>
+                  </Modal>
+                }
+              />
+
+              <Route
+                path="/register"
+                element={
+                  <Modal>
+                    Регистрация
+                    <Link
+                      to="/login"
+                      replace={true}
+                      state={{
+                        backgroundLocation: location,
+                        initialPath,
+                      }}
+                    >
+                      Войти
+                    </Link>
+                  </Modal>
+                }
+              />
+            </Routes>
+          )}
         </main>
         <Footer />
       </CardContext.Provider>
