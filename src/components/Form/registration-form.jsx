@@ -1,6 +1,7 @@
 import "./styles.css";
 
 import { useForm } from "react-hook-form";
+import FormInput from "../FormInput/form-input";
 
 function RegistrationForm() {
   const { register, handleSubmit, formState } = useForm({ mode: "onBlur" });
@@ -9,7 +10,7 @@ function RegistrationForm() {
     console.log(data);
   };
 
-  console.log(formState);
+  // console.log(formState);
 
   //   for (const error in errors) {
   //     console.log(errors[error]);
@@ -19,11 +20,15 @@ function RegistrationForm() {
   return (
     <form onSubmit={handleSubmit(cbSubmit)}>
       <h3>Регистрация</h3>
-      <input
+      <FormInput
         {...register("name", {
+          required: {
+            value: true,
+            message: "Имя пользователя обязательно",
+          },
           minLength: {
             value: 2,
-            message: "Имя пользовтаеля не менее 2 символов",
+            message: "Имя пользователя не менее 2 символов",
           },
         })}
         type="text"
@@ -32,7 +37,7 @@ function RegistrationForm() {
 
       <div>
         {formState.errors?.name && (
-          <p className="errorMessage"> {formState?.name?.message}</p>
+          <p className="errorMessage">{formState.errors?.name?.message}</p>
         )}
       </div>
 

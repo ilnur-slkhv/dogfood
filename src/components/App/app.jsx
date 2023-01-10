@@ -24,6 +24,7 @@ import { FaqPage } from "../../pages/FaqPage/faq-page";
 import { FavoritePage } from "../../pages/FavoritePage/favorite-page";
 import RegistrationForm from "../Form/registration-form";
 import Modal from "../Modal/modal";
+import FormModal from "../FormModal/form-modal";
 // import Form from "../Form/form";
 
 // function ContactList({ contacts }) {
@@ -154,6 +155,8 @@ function App() {
         {/* <Form serializeCb={addContact} /> */}
         {/* <ContactList contacts={contacts} /> */}
         {/* <button onClick={() => setIsOpenModalForm(true)}>Войти</button> */}
+        {/* <RegistrationForm /> */}
+        <FormModal />
         <Header>
           <>
             <Logo className="logo logo_place_header" href="/" />
