@@ -49,6 +49,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const debounceSearchQuery = useDebounce(searchQuery, 400);
   const [favorites, setFavotites] = useState([]);
+  const [currentSort, setCurrentSort] = useState("");
   const [isOpenModalForm, setIsOpenModalForm] = useState(false);
   const navigate = useNavigate();
 
@@ -56,7 +57,6 @@ function App() {
 
   const backgroundLocation = location.state?.backgroundLocation;
   const initialPath = location.state?.initialPath;
-  console.log("initialPath", initialPath);
 
   // const [contacts, setContacts] = useState([]);
 
@@ -133,6 +133,23 @@ function App() {
     [currentUser, cards]
   );
 
+  const sortedData = (currentSort) => {
+    console.log(currentSort);
+    switch (currentSort) {
+      case "low":
+        setCards(cards.sort((a, b) => b.price - a.price));
+        break;
+      case "cheap":
+        setCards(cards.sort((a, b) => a.price - b.price));
+        break;
+      case "sale":
+        setCards(cards.sort((a, b) => b.discount - a.discount));
+        break;
+      default:
+        setCards(cards.sort((a, b) => a.price - b.price));
+    }
+  };
+
   // const addContact = useCallback(
   //   (formData) => {
   //     setContacts([...contacts, formData]);
@@ -146,7 +163,10 @@ function App() {
         value={{
           cards: cards,
           favorites: favorites,
+          currentSort,
           handleLike: handleProductLike,
+          onSortData: sortedData,
+          setCurrentSort,
         }}
       >
         {/* <Modal active={isOpenModalForm} setActive={setIsOpenModalForm}>
