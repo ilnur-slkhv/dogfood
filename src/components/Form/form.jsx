@@ -1,61 +1,18 @@
-import classNames from "classnames";
-import { useForm } from "react-hook-form";
-import FormButton from "../FormButton/form-button";
-import FormInput from "../FormInput/form-input";
+// import classNames from "classnames";
+// import { useForm } from "react-hook-form";
+// import FormButton from "../FormButton/form-button";
+// import FormInput from "../FormInput/form-input";
 import styles from "./styles.module.css";
 
-function Form({
-  title,
-  formType,
-  button,
-  input,
-  infoText,
-  infoTextHeader,
-  changeType,
-  redirect,
-}) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: "onBlur" });
-
-  const cbSubmit = (data) => {
-    console.log(data);
-  };
-
-  const emailRegexp =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const passwordRegexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
-  const emailRegister = register("email", {
-    required: {
-      value: true,
-      message: "Обязательное поле",
-    },
-    pattern: {
-      value: emailRegexp,
-      message: "Email не соответствует формату электронной почты",
-    },
-  });
-
-  const passwordRegister = register("password", {
-    required: {
-      value: true,
-      message: "Обязательное поле",
-    },
-    pattern: {
-      value: passwordRegexp,
-      message:
-        "Пароль должен содержать минимум восемь символов, одну букву латинского алфавита и одну цифру.",
-    },
-  });
-
+function Form({ title, handleFormSubmit, children }) {
   return (
-    <form onSubmit={handleSubmit(cbSubmit)}>
+    <form className={styles.form} onSubmit={handleFormSubmit}>
       <h1 className={styles.title}>{title}</h1>
-      <FormInput
-        {...emailRegister}
+
+      {children}
+
+      {/* <FormInput
+        // {...emailRegister}
         id="email"
         type="text"
         placeholder={input.email}
@@ -69,7 +26,7 @@ function Form({
       {["login", "registration"].includes(formType) && (
         <>
           <FormInput
-            {...passwordRegister}
+            // {...passwordRegister}
             id="password"
             type="password"
             placeholder={input.password}
@@ -107,7 +64,7 @@ function Form({
         >
           {button.redirect}
         </FormButton>
-      )}
+      )} */}
     </form>
   );
 }

@@ -5,7 +5,6 @@ import Form from "../Form/form";
 
 const FormModal = () => {
   const [modalType, setModalType] = useState("login");
-  let form;
 
   if (modalType === "registration") {
     return (

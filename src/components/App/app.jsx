@@ -25,6 +25,9 @@ import { FavoritePage } from "../../pages/FavoritePage/favorite-page";
 import RegistrationForm from "../Form/registration-form";
 import Modal from "../Modal/modal";
 import FormModal from "../FormModal/form-modal";
+import { Register } from "../Register/register";
+import { Login } from "../Login/login";
+import { ResetPassword } from "../ResetPassword/reset-password";
 // import Form from "../Form/form";
 
 // function ContactList({ contacts }) {
@@ -176,7 +179,7 @@ function App() {
         {/* <ContactList contacts={contacts} /> */}
         {/* <button onClick={() => setIsOpenModalForm(true)}>Войти</button> */}
         {/* <RegistrationForm /> */}
-        <FormModal />
+        {/* <FormModal /> */}
         <Header>
           <>
             <Logo className="logo logo_place_header" href="/" />
@@ -217,25 +220,11 @@ function App() {
               element={<FavoritePage isLoading={isLoading} />}
             />
 
-            <Route
-              path="/login"
-              element={
-                <>
-                  Авторизация
-                  <Link to="/register">Зарегистрироваться</Link>
-                </>
-              }
-            />
+            <Route path="/login" element={<Login />} />
 
-            <Route
-              path="/register"
-              element={
-                <Modal>
-                  Регистрация
-                  <Link to="/login">Войти</Link>
-                </Modal>
-              }
-            />
+            <Route path="/register" element={<Register />} />
+
+            <Route path="/reset-password" element={<ResetPassword />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
@@ -246,17 +235,7 @@ function App() {
                 path="/login"
                 element={
                   <Modal>
-                    Авторизация
-                    <Link
-                      to="/register"
-                      replace={true}
-                      state={{
-                        backgroundLocation: location,
-                        initialPath,
-                      }}
-                    >
-                      Зарегистрироваться
-                    </Link>
+                    <Login />
                   </Modal>
                 }
               />
@@ -265,17 +244,16 @@ function App() {
                 path="/register"
                 element={
                   <Modal>
-                    Регистрация
-                    <Link
-                      to="/login"
-                      replace={true}
-                      state={{
-                        backgroundLocation: location,
-                        initialPath,
-                      }}
-                    >
-                      Войти
-                    </Link>
+                    <Register />
+                  </Modal>
+                }
+              />
+
+              <Route
+                path="/reset-password"
+                element={
+                  <Modal>
+                    <ResetPassword />
                   </Modal>
                 }
               />
