@@ -10,6 +10,7 @@
   background-position: top right;
   background-size: contain;
   background-repeat: no-repeat;
+  margin-bottom: 15px;
 }
 
 .title {
@@ -17,7 +18,7 @@
   font-weight: 900;
   color: currentColor;
   line-height: 50px;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .subtitle {
@@ -28,14 +29,14 @@
 
 .price {
   font-size: 28px;
-
   color: currentColor;
   line-height: 32px;
+  margin-bottom: 25px;
 }
 
 .banner_middle {
   font-size: 12px;
-  width: 50%;
+  width: 100%;
   min-height: 220px;
 }
 

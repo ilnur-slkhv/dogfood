@@ -11,9 +11,13 @@ export const Banner = ({
 }) => {
   return (
     <div
-      className={classNames(styles.banner, {
-        [styles[extraClass]]: !!extraClass,
-      })}
+      className={classNames(
+        styles.banner,
+        {
+          [styles[extraClass]]: !!extraClass,
+        },
+        "container"
+      )}
       style={{
         backgroundImage: `url(${background})`,
         backgroundColor: colorBackground,
