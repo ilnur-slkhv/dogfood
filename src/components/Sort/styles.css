@@ -18,8 +18,11 @@
 
 .sort__link_selected {
   color: #1a1a1a;
+  font-weight: bolder;
 }
 
 .sort__link:hover {
   color: #1a1a1a;
+  font-weight: bolder;
+  cursor: pointer;
 }

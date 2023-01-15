@@ -7,11 +7,11 @@ import { CardContext } from "../../context/cardContext";
 export const CatalogPage = ({ isLoading }) => {
   const { cards } = useContext(CardContext);
   return (
-    <>
+    <div className="container container__inner">
       <Sort />
       <div className="content__cards">
         {isLoading ? <Spinner /> : <CardList cards={cards} />}
       </div>
-    </>
+    </div>
   );
 };

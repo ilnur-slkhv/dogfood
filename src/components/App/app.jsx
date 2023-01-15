@@ -28,6 +28,7 @@ import FormModal from "../FormModal/form-modal";
 import { Register } from "../Register/register";
 import { Login } from "../Login/login";
 import { ResetPassword } from "../ResetPassword/reset-password";
+import { HomePage } from "../../pages/HomePage/home-page";
 // import Form from "../Form/form";
 
 // function ContactList({ contacts }) {
@@ -196,7 +197,7 @@ function App() {
             </Routes>
           </>
         </Header>
-        <main className="content container">
+        <main className="content ">
           <SearchInfo searchText={searchQuery} />
           <Routes
             location={
@@ -206,7 +207,12 @@ function App() {
               location
             }
           >
-            <Route index element={<CatalogPage isLoading={isLoading} />} />
+            <Route index element={<HomePage isLoading={isLoading} />} />
+
+            <Route
+              path="/catalog"
+              element={<CatalogPage isLoading={isLoading} />}
+            />
 
             <Route
               path="/product/:productId"

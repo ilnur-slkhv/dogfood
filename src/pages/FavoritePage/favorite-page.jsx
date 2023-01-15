@@ -8,12 +8,12 @@ import { CardContext } from "../../context/cardContext";
 export const FavoritePage = ({ isLoading }) => {
   const { favorites } = useContext(CardContext);
   return (
-    <>
+    <div className="container container__inner">
       <ContentHeader title="Избранное" />
       <Sort />
       <div className="content__cards">
         {isLoading ? <Spinner /> : <CardList cards={favorites} />}
       </div>
-    </>
+    </div>
   );
 };

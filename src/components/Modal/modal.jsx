@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import "./styles.css";
+import "./styles.scss";
 
 function Modal({ children }) {
   const [active, setActive] = useState(false);
