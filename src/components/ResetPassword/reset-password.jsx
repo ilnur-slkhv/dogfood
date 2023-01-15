@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
 import { EMAIL_REGEXP, VALIDATE_CONFIG } from "../../utils/constants";
 import Form from "../Form/form";
 import FormButton from "../FormButton/form-button";

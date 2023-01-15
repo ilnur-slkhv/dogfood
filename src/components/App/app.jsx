@@ -10,13 +10,7 @@ import useDebounce from "../../hooks/useDebounce";
 import { isLiked } from "../../utils/product";
 import { CatalogPage } from "../../pages/CatalogPage/catalog-page";
 import { ProductPage } from "../../pages/ProductPage/product-page";
-import {
-  Link,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { NotFoundPage } from "../../pages/NotFound/not-found-page";
 import { UserContext } from "../../context/userContext";
 import { CardContext } from "../../context/cardContext";
@@ -24,27 +18,10 @@ import { FaqPage } from "../../pages/FaqPage/faq-page";
 import { FavoritePage } from "../../pages/FavoritePage/favorite-page";
 import RegistrationForm from "../Form/registration-form";
 import Modal from "../Modal/modal";
-import FormModal from "../FormModal/form-modal";
 import { Register } from "../Register/register";
 import { Login } from "../Login/login";
 import { ResetPassword } from "../ResetPassword/reset-password";
 import { HomePage } from "../../pages/HomePage/home-page";
-// import Form from "../Form/form";
-
-// function ContactList({ contacts }) {
-//   console.log(contacts);
-//   return (
-//     <div>
-//       {contacts.map((contacts) => (
-//         <div key={contacts.phoneNumber}>
-//           <p>{contacts.name}</p>
-//           <p>{contacts.lastName}</p>
-//           <p>{contacts.phoneNumber}</p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -54,15 +31,12 @@ function App() {
   const debounceSearchQuery = useDebounce(searchQuery, 400);
   const [favorites, setFavotites] = useState([]);
   const [currentSort, setCurrentSort] = useState("");
-  const [isOpenModalForm, setIsOpenModalForm] = useState(false);
   const navigate = useNavigate();
 
   const location = useLocation();
 
   const backgroundLocation = location.state?.backgroundLocation;
   const initialPath = location.state?.initialPath;
-
-  // const [contacts, setContacts] = useState([]);
 
   const handleRequest = useCallback(() => {
     setIsLoading(true);
@@ -154,13 +128,6 @@ function App() {
     }
   };
 
-  // const addContact = useCallback(
-  //   (formData) => {
-  //     setContacts([...contacts, formData]);
-  //   },
-  //   [contacts]
-  // );
-
   return (
     <UserContext.Provider value={{ user: currentUser }}>
       <CardContext.Provider
@@ -173,14 +140,6 @@ function App() {
           setCurrentSort,
         }}
       >
-        {/* <Modal active={isOpenModalForm} setActive={setIsOpenModalForm}>
-          <RegistrationForm />
-        </Modal> */}
-        {/* <Form serializeCb={addContact} /> */}
-        {/* <ContactList contacts={contacts} /> */}
-        {/* <button onClick={() => setIsOpenModalForm(true)}>Войти</button> */}
-        {/* <RegistrationForm /> */}
-        {/* <FormModal /> */}
         <Header>
           <>
             <Logo className="logo logo_place_header" href="/" />

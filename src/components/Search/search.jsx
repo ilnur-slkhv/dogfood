@@ -19,7 +19,6 @@ function Search({ onSubmit: propsOnSubmit, onInput }) {
 
   const handleClearInput = (e) => {
     e.stopPropagation();
-    // setInputText("");
     onInput && onInput("");
   };
 

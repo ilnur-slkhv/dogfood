@@ -10,13 +10,6 @@ function RegistrationForm() {
     console.log(data);
   };
 
-  // console.log(formState);
-
-  //   for (const error in errors) {
-  //     console.log(errors[error]);
-  //     errors[error]?.classList.add("error");
-  //   }
-
   return (
     <form onSubmit={handleSubmit(cbSubmit)}>
       <h3>Регистрация</h3>

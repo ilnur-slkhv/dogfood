@@ -61,7 +61,7 @@ export const Register = () => {
         {...emailRegister}
         id="email"
         type="text"
-        placeholder="email"
+        placeholder="Email"
       />
       {errors?.email && (
         <p className="errorMessage">{errors?.email?.message}</p>

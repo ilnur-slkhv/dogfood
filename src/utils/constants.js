@@ -3,8 +3,8 @@ export const EMAIL_REGEXP =
 export const PASSWORD_REGEXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 export const VALIDATE_CONFIG = {
-  requiredMessage: "Обязательное поле",
-  emailMessage: "Email не соответствует формату электронной почты",
+  requiredMessage: "Обязательное поле.",
+  emailMessage: "Email не соответствует формату электронной почты.",
   passwordMessage:
     "Пароль должен содержать минимум восемь символов, одну букву латинского алфавита и одну цифру.",
 };

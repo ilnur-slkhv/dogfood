@@ -5,8 +5,7 @@ import truck from "./img/truck.svg";
 import quality from "./img/quality.svg";
 
 import { calcDiscountPrice, createMarkup, isLiked } from "../../utils/product";
-// import { useNavigate } from "react-router-dom";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 import { UserContext } from "../../context/userContext";
 import { ContentHeader } from "../ContentHeader/content-header";
 import Rating from "../Rating/rating";
@@ -25,8 +24,6 @@ export const Product = ({
   setProduct,
 }) => {
   const { user: currentUser } = useContext(UserContext);
-  // const [rating, setRating] = useState(null);
-  // const navigate = useNavigate();
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
   const descriptionHtml = createMarkup(description);
