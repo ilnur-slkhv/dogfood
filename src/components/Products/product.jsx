@@ -5,34 +5,46 @@ import truck from "./img/truck.svg";
 import quality from "./img/quality.svg";
 
 import { calcDiscountPrice, createMarkup, isLiked } from "../../utils/product";
-import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { useContext, useMemo, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import { ContentHeader } from "../ContentHeader/content-header";
 import Rating from "../Rating/rating";
+import { FormReview } from "../FormReview/form-review";
 
 export const Product = ({
   onProductLike,
   pictures,
   likes = [],
+  reviews,
   name,
   price,
   discount,
   description,
+  _id,
+  setProduct,
 }) => {
   const { user: currentUser } = useContext(UserContext);
-  const [rating, setRating] = useState(4);
-  const navigate = useNavigate();
+  // const [rating, setRating] = useState(null);
+  // const navigate = useNavigate();
   const discount_price = calcDiscountPrice(price, discount);
   const isLike = isLiked(likes, currentUser?._id);
   const descriptionHtml = createMarkup(description);
+
+  const ratingCount = useMemo(
+    () =>
+      Math.round(
+        reviews.reduce((acc, r) => (acc += r.rating), 0) / reviews.length
+      ),
+    [reviews]
+  );
 
   return (
     <>
       <ContentHeader title={name}>
         <div>
           <span>Артикул:</span>
-          <Rating rating={rating} setRating={setRating} isEditable />
+          <Rating rating={ratingCount} /> {reviews.length} отзыв
         </div>
       </ContentHeader>
 
@@ -134,6 +146,20 @@ export const Product = ({
           </div>
         </div>
       </div>
+
+      <ul>
+        {reviews.map((reviewData) => (
+          <li key={reviewData._id}>
+            {reviewData.text} <Rating rating={reviewData.rating} />
+          </li>
+        ))}
+      </ul>
+
+      <FormReview
+        title={`Отзыв о товаре ${name}`}
+        productId={_id}
+        setProduct={setProduct}
+      />
     </>
   );
 };
