@@ -7,8 +7,8 @@ import quality from "./img/quality.svg";
 import { calcDiscountPrice, createMarkup, isLiked } from "../../utils/product";
 import { useContext, useMemo } from "react";
 import { UserContext } from "../../context/userContext";
-import { ContentHeader } from "../ContentHeader/content-header";
-import Rating from "../Rating/rating";
+import { ContentHeader } from "../UI/ContentHeader/content-header";
+import Rating from "../UI/Rating/rating";
 import { FormReview } from "../FormReview/form-review";
 
 export const Product = ({
@@ -144,9 +144,9 @@ export const Product = ({
         </div>
       </div>
 
-      <ul>
+      <ul className="container">
         {reviews.map((reviewData) => (
-          <li key={reviewData._id}>
+          <li className={classNames(styles.review)} key={reviewData._id}>
             {reviewData.text} <Rating rating={reviewData.rating} />
           </li>
         ))}

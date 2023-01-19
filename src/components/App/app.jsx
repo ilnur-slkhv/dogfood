@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import Footer from "../Footer/footer";
 import Header from "../Header/header";
-import Logo from "../Logo/logo";
-import Search from "../Search/search";
+import Logo from "../UI/Logo/logo";
+import Search from "../UI/Search/search";
 import "./styles.css";
-import SearchInfo from "../SearchInfo";
+import SearchInfo from "../UI/SearchInfo/search-info";
 import api from "../../utils/api";
 import useDebounce from "../../hooks/useDebounce";
 import { isLiked } from "../../utils/product";
@@ -17,11 +17,12 @@ import { CardContext } from "../../context/cardContext";
 import { FaqPage } from "../../pages/FaqPage/faq-page";
 import { FavoritePage } from "../../pages/FavoritePage/favorite-page";
 import RegistrationForm from "../Form/registration-form";
-import Modal from "../Modal/modal";
+
 import { Register } from "../Register/register";
 import { Login } from "../Login/login";
 import { ResetPassword } from "../ResetPassword/reset-password";
 import { HomePage } from "../../pages/HomePage/home-page";
+import Modal from "../UI/Modal/modal";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -73,7 +74,7 @@ function App() {
   }, [debounceSearchQuery]);
 
   const handleFormSubmit = (inputText) => {
-    navigate("/");
+    navigate("/catalog");
     setSearchQuery(inputText);
     handleRequest();
   };
@@ -81,12 +82,6 @@ function App() {
   const handleInputChange = (inputValue) => {
     setSearchQuery(inputValue);
   };
-
-  function handleUpdateUser(userUpdateData) {
-    api.setUserInfo(userUpdateData).then((newUserData) => {
-      setCurrentUser(newUserData);
-    });
-  }
 
   const handleProductLike = useCallback(
     (product) => {
@@ -112,7 +107,6 @@ function App() {
   );
 
   const sortedData = (currentSort) => {
-    console.log(currentSort);
     switch (currentSort) {
       case "low":
         setCards(cards.sort((a, b) => b.price - a.price));
@@ -145,7 +139,7 @@ function App() {
             <Logo className="logo logo_place_header" href="/" />
             <Routes>
               <Route
-                path="/"
+                path="/catalog"
                 element={
                   <Search
                     onSubmit={handleFormSubmit}
@@ -153,10 +147,11 @@ function App() {
                   />
                 }
               />
+              <Route path="*" element={<></>} />
             </Routes>
           </>
         </Header>
-        <main className="content ">
+        <main className="content">
           <SearchInfo searchText={searchQuery} />
           <Routes
             location={

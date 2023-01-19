@@ -7,9 +7,9 @@ function Search({ onSubmit: propsOnSubmit, onInput }) {
   const [inputText, setInputText] = useState("");
   const inputRef = useRef(null);
 
-  const handleInput = (e) => {
+  const handleInput = () => {
     setInputText(inputRef.current.value);
-    onInput && onInput(e.current.value);
+    onInput && onInput(inputRef.current.value);
   };
 
   const handleFormSubmit = (e) => {
@@ -19,6 +19,7 @@ function Search({ onSubmit: propsOnSubmit, onInput }) {
 
   const handleClearInput = (e) => {
     e.stopPropagation();
+    setInputText("");
     onInput && onInput("");
   };
 

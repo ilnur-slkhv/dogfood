@@ -1,4 +1,4 @@
-import { Banner } from "../../components/Banner/banner";
+import { Banner } from "../../components/UI/Banner/banner";
 import { Hero } from "../../components/Hero/hero";
 import Banner_sale from "./img/banner.jpg";
 import Banner_product from "./img/banner_2.jpg";

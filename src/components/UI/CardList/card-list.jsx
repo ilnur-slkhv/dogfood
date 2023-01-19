@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Card from "../Card/card";
-import { NotFound } from "../NotFound/NotFound";
+import { NotFound } from "../../NotFound/NotFound";
 import "./styles.css";
 
 const CardList = ({ cards }) => {

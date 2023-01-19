@@ -9,7 +9,7 @@ import {
 import Form from "../Form/form";
 import FormButton from "../FormButton/form-button";
 import FormInput from "../FormInput/form-input";
-import Rating from "../Rating/rating";
+import Rating from "../UI/Rating/rating";
 
 export const FormReview = ({
   title = "Отзыв о товаре",

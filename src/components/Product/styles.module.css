@@ -210,6 +210,17 @@
   stroke: transparent;
 }
 
+.review {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  padding: 15px 19px;
+  margin: 15px 0px;
+  background: #ffffff;
+  border: 1px solid #cfd8dc;
+  border-radius: 20px;
+}
+
 @media (max-width: 1000px) {
   .product {
     gap: 20px;

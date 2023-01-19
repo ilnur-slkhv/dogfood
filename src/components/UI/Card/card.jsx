@@ -2,11 +2,11 @@ import classNames from "classnames";
 
 import "./styles.css";
 import { ReactComponent as Save } from "./save.svg";
-import { calcDiscountPrice, isLiked } from "../../utils/product";
+import { calcDiscountPrice, isLiked } from "../../../utils/product";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../../context/userContext";
-import { CardContext } from "../../context/cardContext";
+import { UserContext } from "../../../context/userContext";
+import { CardContext } from "../../../context/cardContext";
 
 const Card = ({
   name,

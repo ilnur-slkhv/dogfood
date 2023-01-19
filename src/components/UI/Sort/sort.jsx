@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useContext } from "react";
-import { CardContext } from "../../context/cardContext";
+import { CardContext } from "../../../context/cardContext";
 import "./styles.css";
 
 const tabs = [

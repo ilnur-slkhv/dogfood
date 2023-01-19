@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CardContext } from "../../context/cardContext";
+import { CardContext } from "../../../context/cardContext";
 import "./styles.css";
 
 const SearchInfo = ({ searchText }) => {
@@ -8,7 +8,7 @@ const SearchInfo = ({ searchText }) => {
 
   return (
     searchText && (
-      <section className="search-title">
+      <section className="search-title container container__inner">
         По запросу <span>{searchText}</span> найдено {searchCount} товаров
       </section>
     )

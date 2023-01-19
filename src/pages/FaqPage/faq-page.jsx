@@ -60,6 +60,7 @@ const dataFAQ = [
 export const FaqPage = () => {
   return (
     <div className="container container__inner">
+      <a href="/">Назад</a>
       <h1>Часто спрашивают</h1>
       {dataFAQ.map((data, index) => (
         <Accordion key={index} title={data.title}>
