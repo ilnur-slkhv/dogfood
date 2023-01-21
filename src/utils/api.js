@@ -34,6 +34,14 @@ class Api {
     }).then(onResponce);
   }
 
+  createReviewProduct(productId, reviewData) {
+    return fetch(`${this._baseUrl}/products/review/${productId}`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify(reviewData),
+    }).then(onResponce);
+  }
+
   search(searchQuery) {
     return fetch(`${this._baseUrl}/products/search?query=${searchQuery}`, {
       headers: this._headers,
@@ -53,7 +61,7 @@ const config = {
   headers: {
     "content-type": "application/json",
     authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZhNTEwNzU5Yjk4YjAzOGY3NzlkMTYiLCJncm91cCI6Imdyb3VwLTciLCJpYXQiOjE2Njc5MTE5NTAsImV4cCI6MTY5OTQ0Nzk1MH0.ktu-7UJDiVujzrxDDOurhHRJLu5uaJ0E-3n0Vt0m3AQ",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZhNTEwNzU5Yjk4YjAzOGY3NzlkMTYiLCJncm91cCI6Imdyb3VwLTciLCJpYXQiOjE2Njc5MTE5NTAsImV4cCI6MTY5OTQ0Nzk1MH0.ktu-7UJDiVujzrxDDOurhHRJLu5uaJ0E-3n0Vt0m3AQ",
   },
 };
 
